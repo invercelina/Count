@@ -14,11 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.count.Button
+import com.example.count.Count
 import com.example.count.CountViewModel
 import com.example.count.R
 
 @Composable
-fun ButtonScreen(viewModel: CountViewModel) {
+fun ButtonScreen(navController: NavController, viewModel: CountViewModel) {
     val count = viewModel.count.collectAsState()
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -31,10 +34,19 @@ fun ButtonScreen(viewModel: CountViewModel) {
         ) {
             Text("Increase")
         }
-        Image(
-            painter = painterResource(id = R.drawable.ic_launcher_background),
-            contentDescription = null,
-            modifier = Modifier.clip(RoundedCornerShape(10.dp))
-        )
+        Button(
+            onClick = {
+                navController.navigate(Count) {
+                    popUpTo<Button> { inclusive = true }
+                }
+            }
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_launcher_background),
+                contentDescription = null,
+                modifier = Modifier.clip(RoundedCornerShape(10.dp))
+            )
+
+        }
     }
 }

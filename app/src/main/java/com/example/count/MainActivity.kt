@@ -46,6 +46,6 @@ fun SampleNavHost(
 ) {
     NavHost(navController = navController, startDestination = Count) {
         composable<Count> { CountScreen(navController, viewModel) }
-        composable<Button> { ButtonScreen(viewModel) }
+        composable<Button> { ButtonScreen(navController, viewModel) }
     }
 }
