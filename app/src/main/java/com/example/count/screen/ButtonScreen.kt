@@ -2,6 +2,7 @@ package com.example.count.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,7 +33,14 @@ fun ButtonScreen(navController: NavController, viewModel: CountViewModel) {
         Button(
             onClick = { viewModel.increase() }
         ) {
-            Text("Increase")
+            Box() {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_launcher_background),
+                    contentDescription = null,
+                    modifier = Modifier.clip(RoundedCornerShape(10.dp))
+                )
+                Text("Increase")
+            }
         }
         Button(
             onClick = {
@@ -41,12 +49,7 @@ fun ButtonScreen(navController: NavController, viewModel: CountViewModel) {
                 }
             }
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_launcher_background),
-                contentDescription = null,
-                modifier = Modifier.clip(RoundedCornerShape(10.dp))
-            )
-
+            Text("Back")
         }
     }
 }
