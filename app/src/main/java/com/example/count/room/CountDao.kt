@@ -7,8 +7,8 @@ import androidx.room.Query
 
 @Dao
 interface CountDao {
-    @Query("SELECT * FROM count_table WHERE id = 1")
-    suspend fun getCount(): CountEntity?
+    @Query("SELECT * FROM count_table WHERE name = :name")
+    suspend fun getCount(name: String): CountEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCount(count: CountEntity)

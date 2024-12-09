@@ -5,6 +5,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "count_table")
 data class CountEntity(
-    @PrimaryKey val id: Int = 1,
+    @PrimaryKey val name: String,
     val count: Int
 )

@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.count.screen.ButtonScreen
 import com.example.count.screen.CountScreen
+import com.example.count.screen.LoginScreen
 import com.example.count.ui.theme.CountTheme
 import kotlinx.serialization.Serializable
 
@@ -31,6 +32,9 @@ object Count
 @Serializable
 object Button
 
+@Serializable
+object Login
+
 @Composable
 fun SampleApp() {
     val navController = rememberNavController()
@@ -44,7 +48,8 @@ fun SampleNavHost(
     navController: NavHostController,
     viewModel: CountViewModel
 ) {
-    NavHost(navController = navController, startDestination = Count) {
+    NavHost(navController = navController, startDestination = Login) {
+        composable<Login> { LoginScreen(navController, viewModel) }
         composable<Count> { CountScreen(navController, viewModel) }
         composable<Button> { ButtonScreen(navController, viewModel) }
     }

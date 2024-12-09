@@ -11,10 +11,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class CountViewModel(application: Application) : AndroidViewModel(application) {
-    private val countDao = AppDatabase.getDatabse(application).countDao()
+    private val countDao = AppDatabase.getDatabase(application).countDao()
 
     private val _count = MutableStateFlow(0)
     val count: StateFlow<Int> get() = _count
+
+    private val _name = MutableStateFlow("")
+    val name: StateFlow<String> get() = _name
 
     init {
         loadCount()
@@ -25,16 +28,21 @@ class CountViewModel(application: Application) : AndroidViewModel(application) {
         saveCount()
     }
 
+    fun login(nameInput: String) {
+        _name.value = nameInput
+        loadCount()
+    }
+
     private fun loadCount() {
         viewModelScope.launch(Dispatchers.IO) {
-            val savedCount = countDao.getCount()?.count ?: 0
+            val savedCount = countDao.getCount(_name.value)?.count ?: 0
             _count.value = savedCount
         }
     }
 
     private fun saveCount() {
         viewModelScope.launch(Dispatchers.IO) {
-            countDao.insertCount(CountEntity(count = _count.value))
+            countDao.insertCount(CountEntity(name = _name.value, count = _count.value))
         }
     }
 }
